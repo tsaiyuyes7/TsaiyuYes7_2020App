@@ -23,6 +23,12 @@ const SignupScreen = ({navigation}) =>{
 
     return (
         <View style={{backgroundColor:'#fff',height:812}}>
+            <TouchableOpacity onPress={()=>navigation.goBack()}>
+            <Image
+            source={require('../icon/back.png')}
+            style={{width:24,height:24,marginLeft:36,marginTop:56}}
+            />
+            </TouchableOpacity>
             <View style={styles.headertext}>
             <Text style={{fontSize:28,color:"#675D5D",}}>註冊</Text>
             </View>
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
         elevation:2
     },
     headertext:{
-        marginTop:108,
+        marginTop:56,
         width:328,
         marginLeft:36
         

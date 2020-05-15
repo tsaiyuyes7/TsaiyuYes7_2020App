@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text,Image} from "react-native"
+import {View, Text,Image,TouchableOpacity} from "react-native"
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,6 +16,7 @@ import UnfinishorderScreen from "./UnfinishScreen";
 import FooddetailScreen from "./FooddetailScreen";
 import AddScreen from "../screen/AddScreen.js";
 import UserScreen from "../screen/UserScreen";
+import SettingScreen from "../screen/SettingScreen";
 
 
 
@@ -149,7 +150,28 @@ export const UserNavigation = ({navigation}) => {
                     height:88
                     
                 },
-                headerRight:()=> (<Chatbtn/>)
+                headerRight:()=> (
+                    <View style={{flexDirection:'row'}}>
+                    <Image
+                    source ={require('../icon/chat-bubble.png')}
+                    style={{width:25,height:24,marginRight:16}}
+                    />
+                    <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+                    <Image
+                    source ={require('../icon/settings.png')}
+                    style={{width:24,height:24,marginRight:16}}
+                    />
+                    </TouchableOpacity>
+                    </View>
+                )
+            }}/>
+            <Stack.Screen name="Setting" component = {SettingScreen} options={{
+                title:'設定',
+                headerStyle:{
+                    backgroundColor:"#F0A202F0",
+                    height:88
+                    
+                }
             }}/>
         </Stack.Navigator>
     )

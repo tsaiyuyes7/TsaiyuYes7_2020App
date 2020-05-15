@@ -1,8 +1,25 @@
-import React from "react";
-import {View, Text, TouchableOpacity,StyleSheet,Image,TextInput} from "react-native"
-import {Button} from "react-native-elements";
+import React,{useContext,useEffect}from 'react';
+import {View, Text, TouchableOpacity,StyleSheet,Image,TextInput,AsyncStorage} from "react-native"
+import {Button,Input} from "react-native-elements";
+import {StoreContext}from "../store/UserStore.js";
+const ME_PERSISTENCE_KEY = "ME_PERSISTENCE_KEY";
+const HAS_SET_KEY = "HAS_SET_KEY";
 
 const SignupScreen = ({navigation}) =>{
+
+    const {userState} = useContext(StoreContext);
+    const [user,setUser] = userState;
+
+    const saveToAsyncStorage = () => {
+        try{
+            AsyncStorage.setItem(ME_PERSISTENCE_KEY,JSON.stringify(user));
+            AsyncStorage.setItem(HAS_SET_KEY,JSON.stringify(true));
+        }catch(e){}
+    };
+
+    useEffect(()=>{
+        saveToAsyncStorage();
+    },[user]);
 
     return (
         <View style={{backgroundColor:'#fff',height:812}}>
@@ -19,6 +36,7 @@ const SignupScreen = ({navigation}) =>{
                 <TextInput
                 placeholder="輸入姓名"
                 style={{marginLeft:18,color:"#F0A202"}}
+                onChangeText={(name)=>setUser({...user,name})}
                 />
                 </View>
                 <View style={styles.emailinputsection}>
@@ -29,6 +47,7 @@ const SignupScreen = ({navigation}) =>{
                 <TextInput
                 placeholder="輸入信箱"
                 style={{marginLeft:18,color:"#F0A202"}}
+                onChangeText={(email)=>setUser({...user,email})}
                 />
                 </View>
                 <View style={styles.passwordinputsection}>

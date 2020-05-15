@@ -1,7 +1,10 @@
-import React from 'react';
+import React,{useContext}from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import {StoreContext}from "../store/UserStore.js";
 
 const User = () => {
+    const {userState} = useContext(StoreContext);
+    const [user,setUser] = userState;
     return (
         <View >
             <View style={{ height: 70, width: 375, backgroundColor: '#F0A202F0', }}>
@@ -15,7 +18,8 @@ const User = () => {
                     />
                 </View>
                 <View style={styles.user_profile_name}>
-                    <Text style={styles.user_profile_name_}>Becca</Text>
+                <Text style={styles.user_profile_name_}>{user.name}</Text>
+                <Text style={styles.user_profile_name_}>{user.email}</Text>
                 </View>
             </View>
             <View style={styles.user_list}>

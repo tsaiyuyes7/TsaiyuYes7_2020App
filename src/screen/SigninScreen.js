@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {View, Text, TouchableOpacity,StyleSheet,TextInput,Image} from "react-native";
 import SignupScreen from "../screen/SignupScreen";
 import {Button} from "react-native-elements"

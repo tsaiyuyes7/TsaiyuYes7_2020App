@@ -5,13 +5,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import {SignStackNavigation} from "./src/screen"
 import HomeTabNavigation from "./src/navigations/MainTab.js"
-
+import {StoreProvider} from "./src/store/UserStore.js"
 
 
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App=()=> {
   return (
     <NavigationContainer>
       <SignStackNavigation/>
@@ -27,3 +27,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default ()=>{
+  return(
+    <StoreProvider>
+      <App/>
+    </StoreProvider>// user變成狀態變數
+  )
+}
+
+
+

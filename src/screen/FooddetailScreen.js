@@ -1,11 +1,35 @@
-import React from "react";
+import React,{useState} from "react";
 import {View, Text, FlatList,  TextInput ,TouchableOpacity,Image,ScrollView,StyleSheet,ImageBackground} from "react-native"
 import {Button} from "react-native-elements";
 import fooddata from "../json/fooddetail.json";
 import { round } from "react-native-reanimated";
+import MapView,{Marker} from "react-native-maps";
 
 const FooddetailScreen = ({navigation}) =>{
 
+    const [region,setRegion] = useState({
+        longitude: 121.544637,
+    latitude: 25.024624,
+    longitudeDelta: 0.01,
+    latitudeDelta: 0.02,
+    });
+
+    const [marker,setMaker] = useState({
+        coord:{
+            longitude: 121.544637,
+            latitude: 25.024624,
+        },
+        name:'NTUE',
+        address:'Eat-Eat'
+    });
+
+    const onRegionChangeComplete = (rgn) => {
+        setRegion(rgn);
+        setMaker({...marker,coord:{
+            longitude: rgn.longitude,
+            latitude: rgn.latitude
+        }});
+    }
     return (
         <ScrollView style={{backgroundColor:'#fff'}}>
             <View style={{
@@ -80,10 +104,20 @@ const FooddetailScreen = ({navigation}) =>{
                 </View>
             </View>
             <View style={{height:372,justifyContent:'center',alignItems:'center'}}>
-                <Image
-                source={require('../icon/3F34003E-AB34-489A-A220-9B6B27ED1B41.png')}
+                <MapView
+                region={region}
                 style={{width:340,height:340}}
-                />
+                showsTraffic
+                provider="google"
+                >
+                    <Marker
+                    coordinate={marker.coord}
+                    title={marker.name}
+                    description={marker.address}
+                    />
+                </MapView>
+                
+            
             </View>
         </ScrollView>
     )
